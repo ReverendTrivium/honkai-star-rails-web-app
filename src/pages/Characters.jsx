@@ -26,7 +26,7 @@ const Characters = (props) => {
     // Function to fetch IDs from the JSON file
     const fetchCharacterIds = async () => {
         try {
-            const response = await axios.get('../components/CharacterIDs.json'); // Replace with actual path or URL to JSON file
+            const response = await axios.get('/CharacterIDs.json'); // Replace with actual path or URL to JSON file
             return response.data.ids; // Assuming the JSON structure is { "ids": [...] }
         } catch (error) {
             console.error('Error fetching character IDs:', error);
