@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react'
+/* import React, {useState, useEffect } from 'react'
 import axios from 'axios'
 import CharactersPreview from '../components/CharactersPreview'
 import { AssetFinder } from 'enkanetwork.js';
@@ -17,24 +17,21 @@ import Purple_Star from '../images/Purple_Star.png';
 
 const Characters = (props) => {
 
-    // State to manage loading status
+    // Character Ids
+    const ids = [
+        "1001", "1002", "1003", "1004", "1005", "1006", "1008", "1009", 
+        "1013", "1101", "1102", "1103", "1104", "1105", "1106", "1107", "1108", 
+        "1109", "1110", "1111", "1112", "1201", "1202", "1203", "1204", "1205", 
+        "1206", "1207", "1208", "1209", "1210", "1211", "1212", "1213", "1214", 
+        "1215", "1217", "1218", "1220", "1221", "1222", "1223", "1224", "1301", 
+        "1302", "1303", "1304", "1305", "1306", "1307", "1308", "1309", "1310", 
+        "1312", "1314", "1315", "8001", "8002", "8003", "8004", "8005", "8006"
+    ];
+
+    const [characterData, setCharacterData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // State for fetched character data
-    const [characterData, setCharacterData] = useState([]);
-
-    // Function to fetch IDs from the JSON file
-    const fetchCharacterIds = async () => {
-        try {
-            const response = await axios.get('/CharacterIDs.json'); // Replace with actual path or URL to JSON file
-            return response.data.ids; // Assuming the JSON structure is { "ids": [...] }
-        } catch (error) {
-            console.error('Error fetching character IDs:', error);
-            return []; // Return an empty array if there's an error
-        }
-    };
-
-    // Function to fetch character data from the API using the fetched IDs
+    // Function to fetch character data from the API using the hardcoded IDs
     const fetchCharacters = async (ids) => {
         try {
             const assetFinder = new AssetFinder(); // Initialize the asset finder
@@ -54,31 +51,20 @@ const Characters = (props) => {
                     assets: character.assets,
                 });
             }
-            
             setCharacterData(fetchedData); // Save fetched data to state
             setLoading(false); // Set loading to false when done
         } catch (error) {
             console.error('Error fetching character data:', error);
-            setLoading(false); // Stop loading if there is an error
         }
     };
-    
+
     useEffect(() => {
-        // First, fetch the character IDs from the JSON file
-        const fetchData = async () => {
-            const ids = await fetchCharacterIds(); // Fetch the dynamic IDs
-            if (ids.length > 0) {
-                await fetchCharacters(ids); // Pass the fetched IDs to fetchCharacters to get character data
-            } else {
-                setLoading(false); // No IDs, stop loading
-            }
-        };
-            
-        fetchData(); // Call the function when the component mounts
+        // Call fetchCharacters with the hardcoded ids
+        fetchCharacters(ids);
     }, []);
 
-    if (loading) {
-        return <Loader />; // Show loader while data is being fetched
+    if (!characterData || characterData.length === 0) {
+        return <Loader />;
     }
 
     // Array of filtered characters
@@ -191,7 +177,7 @@ const Characters = (props) => {
 
     return (
         <div className={props.charPreviewState ? pathColors[props.charPreviewData.path] + " p-2 md:p-4 min-h-screen" : "min-h-screen p-2 md:p-4"}>
-            {/* When state is true, render the character details page. Otherwise, render the grid. */}
+            {/* When state is true, render the character details page. Otherwise, render the grid. }
             {props.charPreviewState ? 
                 <div>
                     <CharactersPreview
@@ -206,12 +192,12 @@ const Characters = (props) => {
                     <div className="h-20"></div>
                     <h1 className="p-4 text-black dark:text-white">Characters</h1>
 
-                    {/* Filter Function */}
+                    {/* Filter Function }
                     <div className="md:m-4">
                         <div className="bg-slate-800 dark:bg-slate-500 h-1 w-full"></div>
                         <div className="lg:inline-flex m-2 md:m-4 md:space-x-7 max-lg:space-y-2">
                             
-                            {/* Filter by path */}
+                            {/* Filter by path }
                             <div className="flex p-2 items-center justify-center">
                             {paths.map(path => (
                                 <div key={path} className="relative group inline-block">
@@ -234,7 +220,7 @@ const Characters = (props) => {
                             ))}
                             </div>
 
-                            {/* Filter by light cone */}
+                            {/* Filter by light cone }
                             <div className="flex p-2 items-center justify-center">
                             {lightCones.map(([cone, icon]) => (
                                 <div key={cone} className="relative group inline-block">
@@ -257,7 +243,7 @@ const Characters = (props) => {
                             ))}
                             </div>
 
-                            {/* Filter by rarity */}
+                            {/* Filter by rarity }
                             <div className="flex p-2 items-center justify-center">
                                 <div className="relative group inline-block">
                                     <button 
@@ -284,7 +270,7 @@ const Characters = (props) => {
                                 </div>
                             </div>
 
-                            {/* Filter by name */}
+                            {/* Filter by name }
                             <input 
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 max-lg:w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 id="character-search"
@@ -294,7 +280,7 @@ const Characters = (props) => {
                                 onChange={(e) => setSelectedName(e.target.value)}
                             />
 
-                            {/* Toggle between grid and table */}
+                            {/* Toggle between grid and table }
                             <label className="inline-flex items-center cursor-pointer">
                                 <input type="checkbox" className="sr-only peer" onClick={() => setForm(prev => !prev)} />
                                 <div className="relative w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:bg-blue-600"></div>
@@ -304,7 +290,7 @@ const Characters = (props) => {
                         <div className="bg-slate-800 dark:bg-slate-500 h-1 w-full"></div>
                     </div>
 
-                    {/* Character Grid */}
+                    {/* Character Grid }
                     {form ? (
                         <div className="lg:w-4/5 lg:mx-auto grid max-md:grid-cols-3 md:grid-cols-5 lg:grid-cols-8 gap-2 md:gap-4">
                             {filteredArray.map(entry => (
@@ -329,3 +315,65 @@ const Characters = (props) => {
 }
 
 export default Characters
+*/
+
+import React, { useState, useEffect } from 'react'
+import { AssetFinder } from 'enkanetwork.js';
+import Loader from '../components/Loader'; 
+
+const Characters = () => {
+    // Character Ids
+    const ids = [
+        "1001", "1002", "1003", "1004", "1005", "1006", "1008", "1009", 
+        "1013", "1101", "1102", "1103", "1104", "1105", "1106", "1107", "1108", 
+        "1109", "1110", "1111", "1112", "1201", "1202", "1203", "1204", "1205", 
+        "1206", "1207", "1208", "1209", "1210", "1211", "1212", "1213", "1214", 
+        "1215", "1217", "1218", "1220", "1221", "1222", "1223", "1224", "1301", 
+        "1302", "1303", "1304", "1305", "1306", "1307", "1308", "1309", "1310", 
+        "1312", "1314", "1315", "8001", "8002", "8003", "8004", "8005", "8006"
+    ];
+
+    const [characterData, setCharacterData] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    // Function to fetch character data from the API using the hardcoded IDs
+    const fetchCharacters = async () => {
+        try {
+            const assetFinder = new AssetFinder();
+            const fetchedData = [];
+            for (const id of ids) {
+                const character = await assetFinder.starrail.character(id);
+                const iconUrl = assetFinder.starrail.toLink(`SpriteOutput/AvatarRoundIcon/${id}.png`);
+                fetchedData.push({ id, name: character.name, icon: iconUrl });
+            }
+            setCharacterData(fetchedData);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching character data:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchCharacters();
+    }, []);
+
+    if (loading) {
+        return <Loader />;
+    }
+
+    return (
+        <div className="p-4">
+            <h1 className="text-black dark:text-white text-center text-3xl mb-8">Characters</h1>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                {characterData.map((char) => (
+                    <div key={char.id} className="flex flex-col items-center bg-gray-200 dark:bg-gray-800 p-4 rounded-lg shadow-md">
+                        <img className="w-24 h-24 mb-4 rounded-full" src={char.icon} alt={char.name} />
+                        <h2 className="text-black dark:text-white text-center">{char.name}</h2>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+export default Characters;
