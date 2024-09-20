@@ -1,28 +1,36 @@
 import React, { useEffect, useState } from 'react'
-import Bow_Icon from '../images/Icon_Bow.webp'
-import Catalyst_Icon from '../images/Icon_Catalyst.webp'
-import Claymore_Icon from '../images/Icon_Claymore.webp'
-import Polearm_Icon from '../images/Icon_Polearm.webp'
-import Sword_Icon from '../images/Icon_Sword.webp'
+import Nihility_Icon from '../images/Icon_Nihility.webp';
+import Destruction_Icon from '../images/Icon_Destruction.webp';
+import Harmony_Icon from '../images/Icon_Harmony.webp';
+import Erudition_Icon from '../images/Icon_Erudition.webp';
+import Preservation_Icon from '../images/Icon_Preservation.webp';
+import Hunt_Icon from '../images/Icon_Hunt.webp';
+import Abundance_Icon from '../images/Icon_Abundance.webp';
 import Star from '../images/Star.png'
 
 const Factions = (props) => {
   const [weaponIcon, setWeaponIcon] = useState("")
   useEffect(() => {
-    if (props.weapon == "Sword") {
-      setWeaponIcon(Sword_Icon)
+    if (props.weapon == "Nihility") {
+      setWeaponIcon(Nihility_Icon)
     }
-    if (props.weapon == "Claymore") {
-      setWeaponIcon(Claymore_Icon)
+    if (props.weapon == "Destruction") {
+      setWeaponIcon(Destruction_Icon)
     }
-    if (props.weapon == "Bow") {
-      setWeaponIcon(Bow_Icon)
+    if (props.weapon == "Harmony") {
+      setWeaponIcon(Harmony_Icon)
     }
-    if (props.weapon == "Catalyst") {
-      setWeaponIcon(Catalyst_Icon)
+    if (props.weapon == "Erudition") {
+      setWeaponIcon(Erudition_Icon)
     }
-    if (props.weapon == "Polearm") {
-      setWeaponIcon(Polearm_Icon)
+    if (props.weapon == "Hunt") {
+      setWeaponIcon(Hunt_Icon)
+    }
+    if (props.weapon == "Preservation") {
+      setWeaponIcon(Preservation_Icon)
+    }
+    if (props.weapon == "Abundance") {
+      setWeaponIcon(Abundance_Icon)
     }
   }, [])
 

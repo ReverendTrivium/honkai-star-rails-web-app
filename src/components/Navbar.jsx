@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Sumeru_Icon from '../images/Sumeru_Icon.webp'
-import Sumeru_Icon1 from '../images/Sumeru_Icon1.png'
+import Sumeru_Icon from '../images/Jarilo_Icon.webp'
+import Sumeru_Icon1 from '../images/Jarilo_Icon1.png'
 import Theme from './Theme';
 
 const Navbar = (props) => {
@@ -82,7 +82,7 @@ const Navbar = (props) => {
                     className="block text-black dark:text-gray-300 py-2"
                     onClick={() => {
                         setIsOpen(false)
-                        props.setPage('Weapons')
+                        props.setPage('LightCones')
                         window.scrollTo(0, 0)
                     }}
                 >

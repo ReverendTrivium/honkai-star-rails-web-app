@@ -4,6 +4,7 @@ import { Transition } from '@headlessui/react';
 import WeaponPreview from '../components/WeaponPreview';
 import Loader from '../components/Loader'
 
+
 const Weapons = () => {
 
     const [weapons, setWeapons] = useState([])
@@ -14,83 +15,46 @@ const Weapons = () => {
     const [selectedWeapon, setSelectedWeapon] = useState([])
 
     const fetchData = async () => {
-        try{
-            await axios.get('https://genshin.jmp.blue/weapons')
-            .then(res => {
-                res.data.map(async weapon => {
-                    try {
-                        await axios.get('https://genshin.jmp.blue/weapons/' + weapon)
-                        .then(res2 => {
-
-                            // This method updates state better than the method below.
-                            setWeapons(wep => [...wep, {
-                                'id' : weapon,
-                                'data' : res2.data,
-                                'icon' : 'https://genshin.jmp.blue/weapons/' + weapon + '/icon'
-                            }])
-                            setFilteredWeapons(wep => [...wep, {
-                                'id' : weapon,
-                                'data' : res2.data,
-                                'icon' : 'https://genshin.jmp.blue/weapons/' + weapon + '/icon'
-                            }])
-                        })
-                    } catch (error) {
-                        console.log("Error getting weapon data: ", error)
-                    }
-                })
-                // const array = []
-                // res.data.map(async weapon => {
-                //     if (weapon != "sword-of-narzissenkreuz") { // Until API is updated.
-                //         try {
-                //             await axios.get('https://genshin.jmp.blue/weapons/' + weapon)
-                //             .then(res2 => {
-                //                 // console.log("testing :",  res2.data)
-                //                 array.push({
-                //                     'id' : weapon,
-                //                     'data' : res2.data,
-                //                     'icon' : 'https://genshin.jmp.blue/weapons/' + weapon + '/icon'
-                //                 })
-                //             })
-                //         } catch (error) {
-                //             console.log("Error getting weapon data: ", error)
-                //         }
-                //     }
-                // })
-                // setWeapons(array)
-            })
-            .then(() => setLoading(false))
-          } catch (error) {
-            console.log("Error getting weapons names: ", error)
-          }
-    }
+        try {
+          const client = new StarRail();
+          const lightCones = await client.getAllLightCones();
+          
+          setWeapons(lightCones.map(lc => ({
+            id: lc.id,
+            data: lc,
+            icon: lc.imageUrl // Assuming the API returns a URL for the light cone image
+          })));
+      
+          setFilteredWeapons(lightCones.map(lc => ({
+            id: lc.id,
+            data: lc,
+            icon: lc.imageUrl
+          })));
+      
+          setLoading(false);
+        } catch (error) {
+          console.log("Error fetching light cones: ", error);
+        }
+      };
+      
 
     const options = {
-        types :  [
-            { value: 'Sword', label: 'Sword' },
-            { value: 'Bow', label: 'Bow' },
-            { value: 'Claymore', label: 'Claymore' },
-            { value: 'Polearm', label: 'Polearm' },
-            { value: 'Catalyst', label: 'Catalyst' }
+        types: [
+          { value: 'The Hunt', label: 'The Hunt' },
+          { value: 'Destruction', label: 'Destruction' },
+          { value: 'Erudition', label: 'Erudition' },
+          { value: 'Harmony', label: 'Harmony' },
+          { value: 'Nihility', label: 'Nihility' },
+          { value: 'Preservation', label: 'Preservation' },
+          { value: 'Abundance', label: 'Abundance' }
         ],
-        subStats : [
-            { value: 'ATK,Attack', label: 'ATK' },
-            { value: 'Elemental Mastery', label: 'Elemental Mastery' },
-            { value: 'CRIT DMG', label: 'CRIT DMG' },
-            { value: '-', label: 'N/A' },
-            { value: 'HP', label: 'HP' },
-            { value: 'DEF', label: 'DEF' },
-            { value: 'Energy Recharge', label: 'Energy Recharge' },
-            { value: 'CRIT Rate', label: 'CRIT Rate' },
-            { value: 'Physical DMG Bonus', label: 'Physical DMG Bonus' }
-        ],
-        rarity : [
-            { value: 1, label: '1*' },
-            { value: 2, label: '2*' },
-            { value: 3, label: '3*' },
-            { value: 4, label: '4*' },
-            { value: 5, label: '5*' },
+        rarity: [
+          { value: 3, label: '3*' },
+          { value: 4, label: '4*' },
+          { value: 5, label: '5*' }
         ]
-    };
+      };
+      
 
       
     const [selectedOptions, setSelectedOptions] = useState({
@@ -261,7 +225,7 @@ const Weapons = () => {
                     />
                 </div> :
                 <div>
-                    <h1 className="p-4 text-black dark:text-white">Weapons</h1>
+                    <h1 className="p-4 text-black dark:text-white">Light Cones</h1>
                     {loading ? 
                         <div>
                             <Loader 

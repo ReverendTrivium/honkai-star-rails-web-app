@@ -1,9 +1,13 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from 'tailwindcss'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from 'tailwindcss';
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    nodePolyfills()  // Use the plugin here
+  ],
   base: "/honkai-star-rails-web-app/",
   build: {
     outDir: 'dist'
@@ -13,4 +17,4 @@ export default defineConfig({
       plugins: [tailwindcss()],
     },
   }
-})
+});
