@@ -1,9 +1,9 @@
 {
-  "name": "genshin-impact-web-app",
+  "name": "honkai-star-rails-web-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://myun11.github.io/genshin-impact-web-app",
+  "homepage": "https://reverendtrivium.github.io/honkai-star-rails-web-app",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

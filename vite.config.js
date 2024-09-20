@@ -4,7 +4,7 @@ import tailwindcss from 'tailwindcss'
 
 export default defineConfig({
   plugins: [react()],
-  base: "https://sumeru.dev/",
+  base: "https://ReverendTrivium.github.io",
   build: {
     outDir: 'dist'
   },
