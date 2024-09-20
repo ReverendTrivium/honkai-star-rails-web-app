@@ -18,6 +18,7 @@ const Footer = () => {
         </div>  
       </div>
       <div className="text-sm text-black dark:text-white">
+        <P></P>
         <p>Jarilo.dev is not affiliated with HoYoverse.</p>
         <p>Honkai Star Rails, game content and all assets are trademarks and copyrights of HoYoverse.</p>
       </div>
