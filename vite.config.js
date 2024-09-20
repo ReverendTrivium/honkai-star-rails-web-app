@@ -4,7 +4,7 @@ import tailwindcss from 'tailwindcss'
 
 export default defineConfig({
   plugins: [react()],
-  base: "https://ReverendTrivium.github.io",
+  base: "/honkai-star-rails-web-app/",
   build: {
     outDir: 'dist'
   },
